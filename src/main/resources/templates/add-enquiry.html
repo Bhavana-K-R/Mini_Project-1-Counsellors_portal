@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="dashboard">View Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="add-enquiry">Add Enquiry</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"  href="view-enquiries">View Equiries</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"  href="logout">Logout</a>
+        </li>
+    </ul>
+    <hr/>
+
+    <h2>Add Enquiry</h2>
+    <font style="color: green">
+        <p th:text="${smsg}"></p>
+    </font>
+    <font style="color: red">
+        <p th:text="${emsg}"></p>
+    </font>
+    <form th:action="@{/add-enquiry}" th:object="${enqDto}"method="post">
+    <table>
+        <tr>
+            <td>Student Name : </td>
+            <td>
+                <input type="text" th:field="*{stuName}" class="form-control" required />
+                <input type="hidden" th:field="*{enqId}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Student Phno : </td>
+            <td>
+                <input type="number" th:field="*{stuPhno}" class="form-control" required/>
+            </td>
+        </tr>
+        <tr>
+            <td>Training Mode : </td>
+            <td>
+                <select  th:field="*{classMode}">
+                    <option value="">-Select-</option>
+                    <option value="Online">Online</option>
+                    <option value="Classroom">Classroom</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Select Course : </td>
+            <td>
+                <select  th:field="*{courseId}">
+                    <option value="">-Select-</option>
+                    <option th:each="course : ${courses}"
+                            th:value="${course.courseId}"
+                            th:text="${course.courseName}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Enquiry Status : </td>
+            <td>
+                <select  th:field="*{enqStatus}">
+                    <option value="">-Select-</option>
+                    <option value="OPEN">Open</option>
+                    <option value="ENROLLED">Enrolled</option>
+                    <option value="LOST">Lost</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Save" class="btn btn-primary" />
+            </td>
+        </tr>
+    </table>
+    </form>
+    <script th:if="${smsg}" th:inline="javascript">
+        setTimeout(function() {
+            /*[[${redirectUrl}]]*/
+            window.location.href = /*[[${redirectUrl}]]*/ '';
+        }, 5000);
+    </script>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous">
+</script>
+</body>
+</html>
