@@ -27,7 +27,7 @@ public class Counsellor {
     private LocalDateTime cnslrCreatedAt;
     @UpdateTimestamp
     private LocalDateTime cnslrUpdatedAt;
-    @OneToMany(mappedBy = "counsellor")
+    @OneToMany(mappedBy = "counsellor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Enquiry> enquiries;
 
 }

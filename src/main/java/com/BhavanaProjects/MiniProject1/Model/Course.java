@@ -13,6 +13,6 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer courseId;
    private String courseName;
-   @OneToMany(mappedBy = "course")
+   @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
    private List<Enquiry> enquiries;
 }
